@@ -48,7 +48,7 @@ public class DigestUtil {
       return digest;
     }
 
-    private ActionKey(Digest digest) {
+    public ActionKey(Digest digest) {
       this.digest = digest;
     }
   }
@@ -134,14 +134,4 @@ public class DigestUtil {
     return digest.getHash() + "/" + digest.getSizeBytes();
   }
 
-  public static Digest getFromInputCache(ActionInput input, MetadataProvider cache)
-      throws IOException {
-    FileArtifactValue metadata = cache.getMetadata(input);
-    Preconditions.checkNotNull(metadata, "Input cache %s returned no value for %s", cache, input);
-    Preconditions.checkNotNull(
-        metadata.getDigest(),
-        "Null digest for %s, possible directory. Data dependencies on directories are not allowed.",
-        input);
-    return buildDigest(metadata.getDigest(), metadata.getSize());
-  }
 }
