@@ -34,8 +34,11 @@ if [ -z "${GRPC_LIBRARY_JARS}" ]; then
   GRPC_JAVA_VERSION=1.26.0
   GRPC_LIBRARY_JARS=$(find third_party/grpc -name '*.jar' | grep -e ".*${GRPC_JAVA_VERSION}.*jar" | tr "\n" " ")
 fi
-GUAVA_VERSION=25.1
-GUAVA_JARS=$(find third_party/guava -name '*.jar' | grep -e ".*${GUAVA_VERSION}.*jar" | tr "\n" " ")
+GUAVA_VERSION="29.0"
+FAILUREACCESS_VERSION="1.0.1"
+GUAVA_JARS="$(find third_party/guava -name '*.jar' | \
+  grep -e "guava.*${GUAVA_VERSION}.*jar\|failureaccess.*${FAILUREACCESS_VERSION}.*jar" | \
+  tr "\n" " ")"
 LIBRARY_JARS="${LIBRARY_JARS} ${GRPC_LIBRARY_JARS} ${GUAVA_JARS}"
 
 DIRS=$(echo src/{java_tools/singlejar/java/com/google/devtools/build/zip,main/java} tools/java/runfiles ${OUTPUT_DIR}/src)
